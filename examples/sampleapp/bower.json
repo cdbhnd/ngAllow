@@ -1,0 +1,20 @@
+{
+  "name": "sampleapp",
+  "version": "0.0.1",
+  "authors": [
+    "Misa Ninkovic <misanink@gmail.com>"
+  ],
+  "description": "sample app for testing ngAllow module",
+  "main": "index.html",
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "angularjs": "~1.4.7"
+  }
+}
