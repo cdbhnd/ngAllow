@@ -1,0 +1,31 @@
+{
+  "name": "ng-allow",
+  "version": "1.0.0",
+  "description": "Angular library for handling role/permissions",
+  "main": "gulpfile.js",
+  "directories": {
+    "example": "examples"
+  },
+  "dependencies": {
+    "gulp-concat": "^2.6.0"
+  },
+  "devDependencies": {
+    "gulp": "^3.9.0",
+    "gulp-concat": "^2.6.0",
+    "gulp-rename": "^1.2.2",
+    "gulp-uglifyjs": "^0.6.2",
+    "run-sequence": "^1.1.4"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "angular",
+    "permission",
+    "role",
+    "access",
+    "allow"
+  ],
+  "author": "Codebehind doo",
+  "license": "ISC"
+}
