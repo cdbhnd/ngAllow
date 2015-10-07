@@ -124,22 +124,9 @@
             }
         });
 
-        $allowProvider.registerRole('unknown', function(payload) {
+        $allowProvider.registerRole('visitor', function(payload) {
 
             if (!forceContext.current) {
-                return true;
-            }
-
-            return false;
-        });
-
-        $allowProvider.registerRole('sith', function() {
-
-            if (!forceContext.current) {
-                return false;
-            }
-
-            if (forceContext.current.role === 'Sith') {
                 return true;
             }
 
@@ -148,7 +135,7 @@
 
         $allowProvider.registerPermission('bright-side-of-the-force', ['jedi']);
         $allowProvider.registerPermission('dark-side-of-the-force', ['sith']);
-        $allowProvider.registerPermission('can-drive', ['soldier-driver', 'unknown']);
+        $allowProvider.registerPermission('can-drive', ['soldier-driver', 'visitor']);
 
     }]);
 
