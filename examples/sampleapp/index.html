@@ -18,14 +18,14 @@
         <button ng-click="vm.context.setJedi()">Login as jedi</button>
     </div>
     <div ng-if="vm.context.current">
-        <div allow="brightSideOfTheForce">
+        <div allow="bright-side-of-the-force">
             <ul>
                 <li>Compassion</li>
                 <li>Modesty</li>
                 <li>Peace</li>
             </ul>
         </div>
-        <div allow="darkSideOfTheForce">
+        <div allow="dark-side-of-the-force">
             <ul>
                 <li>Anger</li>
                 <li>Fear</li>
@@ -33,6 +33,16 @@
             </ul>
         </div>
         <button ng-click="vm.context.clear()">Logout</button>
+    </div>
+    <div>
+        <h3>Vehicles</h3>
+        <ul>
+            <li ng-repeat="vehicle in vm.vehicles">
+                {{vehicle.name}} ({{vehicle.type}})
+
+                <button allow="can-drive({ vehicle: vehicle })">Drive</button>
+            </li>
+        </ul>
     </div>
 </body>
 

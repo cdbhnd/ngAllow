@@ -15,13 +15,37 @@
     function BattlefieldController(forceContext) {
         var vm = this;
         vm.context = forceContext;
+
+        vm.vehicles = [{
+            name: 'DeathStar',
+            type: 'ship',
+            owner: 'Empire'
+        }, {
+            name: 'X-WING STARFIGHTER',
+            type: 'ship',
+            owner: 'Rebel Aliance'
+        }, {
+            name: 'AT-ST WALKER',
+            type: 'walker',
+            owner: 'Empire'
+        }, {
+            name: 'AAT BATTLE TANK',
+            type: 'tank',
+            owner: 'Empire'
+        }, {
+            name: 'SNOWSPEEDER',
+            type: 'ship',
+            owner: 'Rebel Aliance'
+        }];
     }
 
     angular
         .module('StarWars')
         .factory('forceContext', forceContext);
 
-    function forceContext() {
+    forceContext.$inject = ['$rootScope'];
+
+    function forceContext($rootScope) {
 
         var context = {
             current: null,
@@ -37,6 +61,8 @@
                 name: 'Luke Skywalker',
                 role: 'Jedi'
             };
+
+            $rootScope.$emit('$allow.refresh');
         }
 
         function setSith() {
@@ -44,10 +70,14 @@
                 name: 'Dart Wader',
                 role: 'Sith'
             };
+
+            $rootScope.$emit('$allow.refresh');
         }
 
         function clear() {
             context.current = null;
+
+            $rootScope.$emit('$allow.refresh');
         }
     }
 
@@ -79,8 +109,46 @@
             return false;
         });
 
-        $allowProvider.registerPermission('brightSideOfTheForce', ['jedi']);
-        $allowProvider.registerPermission('darkSideOfTheForce', ['sith']);
+        $allowProvider.registerRole('soldier-driver', function(payload) {
+
+            if (!forceContext.current) {
+                return false;
+            }
+
+            if (forceContext.current.role === 'Jedi' && payload.vehicle.owner === 'Rebel Aliance') {
+                return true;
+            }
+
+            if (forceContext.current.role === 'Sith' && payload.vehicle.owner === 'Empire') {
+                return true;
+            }
+        });
+
+        $allowProvider.registerRole('unknown', function(payload) {
+
+            if (!forceContext.current) {
+                return true;
+            }
+
+            return false;
+        });
+
+        $allowProvider.registerRole('sith', function() {
+
+            if (!forceContext.current) {
+                return false;
+            }
+
+            if (forceContext.current.role === 'Sith') {
+                return true;
+            }
+
+            return false;
+        });
+
+        $allowProvider.registerPermission('bright-side-of-the-force', ['jedi']);
+        $allowProvider.registerPermission('dark-side-of-the-force', ['sith']);
+        $allowProvider.registerPermission('can-drive', ['soldier-driver', 'unknown']);
 
     }]);
 
