@@ -3,7 +3,9 @@
 
     angular
         .module('ngAllow', []);
+
 })();
+
 (function() {
     'use strict';
 
@@ -11,9 +13,9 @@
         .module('ngAllow')
         .directive('allow', permission);
 
-    permission.$inject = ['$rootScope', 'allowProvider'];
+    permission.$inject = ['$rootScope', '$allowProvider'];
 
-    function permission($rootScope, roleManager) {
+    function permission($rootScope, $allowProvider) {
 
         var directive = {
             link: link,
@@ -25,11 +27,11 @@
 
             var prevDisp = element.css('display');
 
-            function parseStateRef(ref) {
+            function parsePermissionRef(ref) {
 
                 var parsed = ref.replace(/\n/g, " ").match(/^([^(]+?)\s*(\((.*)\))?$/);
                 if (!parsed || parsed.length !== 4) {
-                    throw new Error("Invalid permission ref '" + ref + "'");
+                    throw new Error('Invalid permission ref "' + ref + '"');
                 }
 
                 return {
@@ -38,16 +40,16 @@
                 };
             }
 
-            var permission = parseStateRef(attrs.permission);
+            var permission = parsePermissionRef(attrs.allow);
 
             var update = function(val) {
                 if (val) {
                     permission.payload = angular.copy(val);
                 }
 
-                var result = roleManager.authorize(permission.name, permission.payload);
+                var autorized = $allowProvider.authorize(permission.name, permission.payload);
 
-                if (result) {
+                if (autorized) {
                     element.css('display', prevDisp);
                 } else {
                     element.css('display', 'none');
@@ -60,6 +62,7 @@
                         update(val);
                     }
                 }, true);
+
                 permission.payload = angular.copy(scope.$eval(permission.payloadExpr));
             } else {
                 permission.payload = {};
@@ -80,7 +83,7 @@
 
     angular
         .module('ngAllow')
-        .factory('allowProvider', factory);
+        .factory('$allowProvider', factory);
 
     function factory() {
 

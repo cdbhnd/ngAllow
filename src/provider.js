@@ -3,7 +3,7 @@
 
     angular
         .module('ngAllow')
-        .factory('allowProvider', factory);
+        .factory('$allowProvider', factory);
 
     function factory() {
 

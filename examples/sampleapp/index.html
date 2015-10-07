@@ -1,1 +1,39 @@
-index.html
+<!DOCTYPE html>
+<html lang="en" ng-app="StarWars">
+
+<head>
+    <script src="bower_components/angularjs/angular.js"></script>
+    <script src="../../dist/angular.allow.js"></script>
+    <script src="app.js"></script>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, height=device-height,  initial-scale=1, maximum-scale=1, user-scalable=no, user-scalable=0" />
+    <title>Star Wars</title>
+    <base href="/" />
+</head>
+
+<body ng-controller="BattlefieldController as vm">
+    <div ng-show="!vm.context.current">
+        <button ng-click="vm.context.setSith()">Login as sith</button>
+        <button ng-click="vm.context.setJedi()">Login as jedi</button>
+    </div>
+    <div ng-if="vm.context.current">
+        <div allow="brightSideOfTheForce">
+            <ul>
+                <li>Compassion</li>
+                <li>Modesty</li>
+                <li>Peace</li>
+            </ul>
+        </div>
+        <div allow="darkSideOfTheForce">
+            <ul>
+                <li>Anger</li>
+                <li>Fear</li>
+                <li>Cruelty</li>
+            </ul>
+        </div>
+        <button ng-click="vm.context.clear()">Logout</button>
+    </div>
+</body>
+
+</html>
